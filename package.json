@@ -1,0 +1,26 @@
+{
+  "name": "whats-out",
+  "version": "0.0.1",
+  "description": "A simple events management api",
+  "main": "server.js",
+  "repository": "",
+  "contributors": [
+    "Samuel B. Hailemariam <samuel.balcha@gmail.com>",
+    "Lulit W Gebremichael <lulitw@gmail.com>"
+  ],
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mongoose": "^4.1.11",
+    "shortid": "^2.2.4"
+  },
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "mocha": "^2.3.3",
+    "nodemon": "^1.7.1",
+    "request": "^2.65.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  }
+}
