@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="whatsOut">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1" />
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft|Roboto|Montserrat:300,400,500,700,400italic">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//cdn.jsdelivr.net/animatecss/3.2.0/animate.css" rel="stylesheet">
+         <link href="styles/style.css" rel="stylesheet">
+    </head>
+    <body>
+        
+        <nav  role="navigation" class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header"  role="navigation">
+                <a class="navbar-brand" href="/#/">
+                    What's Out<i>!</i>
+                </a>
+            </div>
+                <ul class="nav navbar-nav navbar-right">
+                <li><a href="">Login </a></li>
+                <li><a href="">Signup </a></li>
+            </ul>
+            </div>
+        </nav>
+        
+        <!--View loads here -->
+        <div ui-view class="container"></div>
+        
+        <!-- scripts -->
+        <!-- jquery, angular, bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-resource.min.js"></script>
+        
+        <!-- satellizer -->
+        <script src="//cdn.jsdelivr.net/satellizer/0.12.5/satellizer.min.js"></script>
+        
+        <!-- whatOut app -->
+        <script src="angularApp.js"></script>
+        <script src="event/listCtrl.js"></script>
+        <script src="event/detailCtrl.js"></script>
+    </body>
+</html>

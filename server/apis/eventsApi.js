@@ -1,11 +1,12 @@
 'use strict';
 
-var Event = require('./models/events').Events;
+var Event = require('../models/events').Events;
 
 /**
  * Gets all events and returns a sorted list by dateCreated
  */
 exports.getAllEvents = function(req, res, next){
+    
     Event.find().sort({ dateCreated : 'desc'}).exec(function(err, evts){
         if(err){
             res.status(500);
@@ -14,6 +15,7 @@ exports.getAllEvents = function(req, res, next){
             res.status(404);
         }
         else{
+           
             res.status(200).send(evts);
         }
     });
@@ -23,7 +25,7 @@ exports.getAllEvents = function(req, res, next){
  * Returns event by id
  */
 exports.getEvent = function(req, res, next){
-    Event.find({ _id : req.params.id }, function(err, evt){
+    Event.findOne({ _id : req.params.id }, function(err, evt){
         if(err){
             res.status(500);
         }
@@ -46,10 +48,14 @@ exports.searchEvents = function(req, res, next){
     if(req.query.location){
        condition = { location : req.query.location };
     }
-    if(req.query.createdBy){
+    if(req.query.title){
+        condition = { title : req.query.title };
+    }
+    /**
+    if(req.query.date){
         condition = { createdBy : req.query.createdBy };
     }
-   
+   */
    
     Event.find(condition, function(err, evts){
         if(err){

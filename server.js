@@ -4,10 +4,20 @@ var express = require('express');
 var mongoose = require('mongoose');
 var http = require('http');
 var bodyParser = require('body-parser');
-var eventsApi = require('./server/eventsApi');
+
+// lets usage of HTTP verbs where client does not support 'em
+var methodOverride = require('method-override');
+var eventsApi = require('./server/apis/eventsApi');
+var authApi = require('./server/apis/authorization');
 
 var app = express();
+
+// tell express where client folder is
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(methodOverride());
+
 // connect to mongo (Mongolab)
 var mongo_uri = 'mongodb://mcc:T-110.5121@ds037447.mongolab.com:37447/fendka';
 mongoose.connect(mongo_uri);
@@ -22,13 +32,12 @@ app.delete('/api/v1/events/:id', eventsApi.removeEvent);
 app.get('/api/v1/search', eventsApi.searchEvents);
 app.patch('/api/v1/events/:id/:person', eventsApi.addParticipantToEvent);
 
+// auth
+app.post('/auth/google', authApi.googleLogin);
+
 var port = process.env.PORT || 3000;
 var server = http.createServer(app);
 
-/**
- * Server listens to port. 
- * In case of error retries again
- **/
  
 server.listen(port).on('error', function(err){
     if(err.code === 'EADDRINUSE'){

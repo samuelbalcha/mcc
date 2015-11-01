@@ -1,0 +1,54 @@
+<div ng-controller="EventDetailCtrl" class="col-sm-12">
+    <div ng-hide="editMode">  
+        <div class="col-md-10 well">
+        <h3><span class="glyphicon glyphicon-bookmark"></span> {{ eventDetail.title }} </h3>
+    </div>
+        <div class="col-md-10 panel">
+            <div class="panel-body">
+                <label for="">Description </label>
+                <p class=""> {{ eventDetail.description }} </p>
+                <hr class="divider"/>
+            
+                <label for="">Date </label>
+                <p class=""> {{ eventDetail.date }}  </p>
+                <label for="">Location </label>
+                <p class=""> {{ eventDetail.location }}  </p>
+                <span class="glyphicon glyphicon-thumbs-up"></span>  <label for="">Participants </label>
+                <p ng-repeat="person in eventDetail.participants track by $index">
+                     {{ person }}
+                </p>
+        </div>
+            <div class="panel-footer">
+                <div class="container">
+                  <button ng-click="editMode = !editMode" type="button" class="btn btn-default">Update</button>
+                  <button ng-click="remove()" type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="editMode">
+        <div class="col-md-10 well">
+            <h4>Editing </h4>
+        </div>
+        <div class="col-md-10 panel">
+            <form name="editForm">
+                <div class="row">
+                    <label for="">Title</label>
+                    <br/>
+                    <input type="text" class="col-md-8" ng-model="eventDetail.title" />
+                </div>
+                <div class="row">
+                    <label for="">Description</label>
+                    <br/>
+                    <textarea  ng-model="eventDetail.description" class="col-md-8" rows="4"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-10 panel-footer">
+            <div class="container">
+               <button ng-click="editMode = !editMode" type="button" class="btn btn-default">Cancel</button>
+               <button ng-click="save()" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

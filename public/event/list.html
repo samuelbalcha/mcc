@@ -1,0 +1,20 @@
+<div class="row" ng-controller="EventListCtrl">
+    <ul class="media-list main-list">
+        <li ng-repeat="evt in eventsList" class="media">
+           <a href="/#/events/{{ evt._id }}" >
+                <span class="pull-left" href="#">
+    			    <img class="media-object" src="http://placehold.it/150x90" alt="...">
+    			</span>
+    			<div class="media-body padd5">
+                    <h3 class="media-heading"> {{ evt.title }} </h3>
+                    <p>
+                        <span class="glyphicon glyphicon-time"> </span> {{ evt.date }} 
+                        <br/>
+                        <span class="glyphicon glyphicon-map-marker"> </span>  {{ evt.location }}
+                    </p>
+                    <p class="glyphicon glyphicon-user"> {{ evt.createdBy }} </p>
+                </div>
+           </a>
+        </li>
+    </ul>
+</div>
