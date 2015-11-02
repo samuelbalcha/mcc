@@ -66,7 +66,7 @@ exports.searchEvents = function(req, res, next){
 
 
 /**
- * Creats new event
+ * Creates new event
  */ 
 exports.createEvent = function(req, res, next){
     var par = req.body;
