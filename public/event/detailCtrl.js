@@ -4,11 +4,8 @@ angular.module('whatsOut').controller('EventDetailCtrl', function($scope, $http,
     $scope.editMode = false;
     $scope.addMode = false;
 
-
     init();
 
-
-    
     function init(){
 
         if($stateParams.id != 'add') {
@@ -49,7 +46,5 @@ angular.module('whatsOut').controller('EventDetailCtrl', function($scope, $http,
             alert(err);
         });
     };
-
-
 
 });

@@ -50,12 +50,13 @@ exports.searchEvents = function(req, res, next){
     if(req.query.title){
         condition = { title : req.query.title };
     }
-    /**
+
     if(req.query.date){
-        condition = { createdBy : req.query.createdBy };
+        var cutoff = new Date();
+        cutoff.setDate(cutoff.getDate()-7);
+        condition = {date: {$gt: cutoff, $lt: new Date()}};
     }
-   */
-   
+
     Event.find(condition, function(err, evts){
         if(err){
             res.status(500);
