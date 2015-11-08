@@ -1,0 +1,92 @@
+<div ng-controller="EventDetailCtrl" class="col-sm-12">
+    <div ng-hide="editMode">  
+        <div class="col-md-10 well">
+        <h3><span class="glyphicon glyphicon-bookmark"></span> {{ eventDetail.title }} </h3>
+    </div>
+        <div class="col-md-10 panel">
+            <div class="panel-body">
+                <label for="">Description </label>
+                <p ng-bind-html="eventDetail.description"></p>
+                <hr class="divider"/>
+            
+                <label for="">Event Date </label>
+                <p class=""> {{ eventDetail.date | date:'MM/dd/yyyy @ h:mma' }}  - {{eventDetail.dateEnd | date:'MM/dd/yyyy @ h:mma'}}</p>
+                <label for="">Location </label>
+                <p class="" > {{ eventDetail.location }}  </p>
+                <span class="glyphicon glyphicon-thumbs-up"></span>  <label for="">Participants </label>
+                <p ng-repeat="person in eventDetail.participants track by $index">
+                     {{ person }}
+                </p>
+        </div>
+            <div class="panel-footer">
+                <div class="container">
+                  <button ng-click="editMode = !editMode" type="button" class="btn btn-default">Edit</button>
+                  <button ng-click="remove()" type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="editMode">
+        <div class="col-md-10 well">
+            <h4>Editing </h4>
+        </div>
+        <div class="col-md-10 panel">
+            <form name="editForm">
+                <div class="row">
+                    <label for="">Title</label>
+                    <br/>
+                    <input type="text" class="col-md-8" ng-model="eventDetail.title" />
+                </div>
+                <div class="row">
+                    <label for="">Description</label>
+                    <br/>
+                    <textarea  ng-model="eventDetail.description" class="col-md-8" rows="4"></textarea>
+                </div>
+                <div class="row">
+                    <label for="">Date</label>
+                    <br/>
+
+
+                    <div class="col-md-8" ng-controller="DTpickerCtrl">
+                    From:
+                    <datetimepicker min-date="minDate" hour-step="hourStep"
+                                    minute-step="minuteStep" ng-model="eventDetail.date" show-meridian="showMeridian"
+                                    date-format="dd-MMM-yyyy" date-options="dateOptions"
+                                    date-disabled="disabled(date, mode)"
+                                    readonly-date="false"
+                                    show-spinners="true"
+                                    readonly-time="false">
+
+                    </datetimepicker>
+                    </div>
+
+                    <div class="col-md-8" ng-controller="DTpickerCtrl">
+                    To:
+                        <datetimepicker min-date="minDate" hour-step="hourStep"
+                                        minute-step="minuteStep" ng-model="eventDetail.dateEnd" show-meridian="showMeridian"
+                                        date-format="dd-MMM-yyyy" date-options="dateOptions"
+                                        date-disabled="disabled(date, mode)"
+                                        readonly-date="false"
+                                        show-spinners="true"
+                                        readonly-time="false">
+
+                        </datetimepicker>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <label for="">Location</label>
+                    <br/>
+
+                    <input type="text" class="col-md-8" ng-model="eventDetail.location" />
+                </div>
+            </form>
+        </div>
+        <div class="col-md-10 panel-footer">
+            <div class="container">
+               <button ng-click="editMode = !editMode" type="button" class="btn btn-default">Cancel</button>
+               <button ng-click="save()" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

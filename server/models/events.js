@@ -16,8 +16,10 @@ var eventSchema = new Schema({
     description :  { type: String, trim : true },
     location :  { type: String, trim : true },
     date : Date,
+    dateEnd : Date,
     createdBy : String,
     dateCreated : Date,
+    gid: String, // google calendar id
     participants : [ { type : String }]
 });
 

@@ -1,11 +1,12 @@
 'use strict';
 
-var Event = require('./models/events').Events;
+var Event = require('../models/events').Events;
 
 /**
  * Gets all events and returns a sorted list by dateCreated
  */
 exports.getAllEvents = function(req, res, next){
+    
     Event.find().sort({ dateCreated : 'desc'}).exec(function(err, evts){
         if(err){
             res.status(500);
@@ -23,7 +24,7 @@ exports.getAllEvents = function(req, res, next){
  * Returns event by id
  */
 exports.getEvent = function(req, res, next){
-    Event.find({ _id : req.params.id }, function(err, evt){
+    Event.findOne({ _id : req.params.id }, function(err, evt){
         if(err){
             res.status(500);
         }
@@ -46,10 +47,14 @@ exports.searchEvents = function(req, res, next){
     if(req.query.location){
        condition = { location : req.query.location };
     }
-    if(req.query.createdBy){
+    if(req.query.title){
+        condition = { title : req.query.title };
+    }
+    /**
+    if(req.query.date){
         condition = { createdBy : req.query.createdBy };
     }
-   
+   */
    
     Event.find(condition, function(err, evts){
         if(err){
@@ -70,12 +75,13 @@ exports.searchEvents = function(req, res, next){
  */ 
 exports.createEvent = function(req, res, next){
     var par = req.body;
-    
+
     var evt = new Event({
         title : par.title,
         description :  par.description,
         location :  par.location,
         date : par.date,
+        dateEnd : par.dateEnd,
         createdBy : par.createdBy
     });
     
@@ -106,7 +112,8 @@ exports.updateEvent = function(req, res, next){
             evt.description = par.description || evt.description;
             evt.location = par.location || evt.location;
             evt.date = par.date || evt.date;
-            
+            evt.dateEnd = par.dateEnd || evt.dateEnd;
+
             evt.save(function(err){
                 if(err){
                     res.status(500);
@@ -159,4 +166,57 @@ exports.addParticipantToEvent = function(req, res, next){
             });
         }
     });
+};
+
+
+/**
+ * Syncs google calendar event
+ */
+exports.syncEvents = function(req, res, next){
+    var par = req.body;
+    // if no gid specified - skip
+
+    if(!par.gid) {
+        res.status(500);
+    } else {
+        Event.findOne({ 'gid': req.body.gid }, function(err, evt){
+            if(err){
+                res.status(500);
+            }
+            if(!evt){
+                // create event
+                var evt = new Event({
+                    title : par.title,
+                    description :  par.description,
+                    location :  par.location,
+                    date : par.date,
+                    dateEnd : par.dateEnd,
+                    createdBy : par.createdBy,
+                    gid: par.gid
+                });
+
+                evt.save(function(err){
+                    if(err){
+                        res.status(500).send(":(");
+                        next(err);
+                    }
+                    res.status(201).send(evt);
+                });
+            }
+            else{
+                evt.title = par.title || evt.title;
+                evt.description = par.description || evt.description;
+                evt.location = par.location || evt.location;
+                evt.date = par.date || evt.date;
+                evt.dateEnd = par.dateEnd || evt.dateEnd;
+
+                evt.save(function(err){
+                    if(err){
+                        res.status(500);
+                    }
+                    res.status(200).send(evt);
+                });
+            }
+        });
+    }
 };
