@@ -20,6 +20,6 @@ The sample contains unit tests that test the API endpoints. Some of the tests ar
 
 ## How to sync with google calendar
 
-1) Update google app credentials with your own
-2) Go to /gauth -> authorize app
+1) Create google app and credentials.
+2) Update google app credentials with your own in server.js (modify googleConfig object)
 3) Go to / and sync to google calendar or from google calendar

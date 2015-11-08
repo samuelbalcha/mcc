@@ -10,14 +10,17 @@ angular.module('whatsOut',  ['ngResource', 'ngMessages', 'ngAnimate', 'toastr', 
         $stateProvider.state('detail', { url : '/events/:id', templateUrl : 'event/detail.html' });
         $stateProvider.state('add', { url : '/events/add', templateUrl : 'event/detail.html' });
         $stateProvider.state('sync', { url : '/sync', template: null, controller: 'EventSyncCtrl' });
-        $stateProvider.state('gsync', { url : '/gsync', template: null,
-            controller: function($scope, $http, $stateParams, $location){
 
-                console.log('here');
+        $stateProvider.state('gsync', { url : '/gsync', template: null,
+            controller: function($window, $scope, $http, $stateParams, $location){
                 $http.get('/api/v1/gsync').success(function(data){
-                    $location.path('/');
+                    if(data.url) {
+                        $window.location.href  = data.url;
+                    } else {
+                        $location.path('/');
+                    }
                 }).error(function(err){
-                        alert(err);
+                        alert('Unable to sync to calendar. Please refresh the page.')
                 });
 
         } });

@@ -11,13 +11,12 @@ var google = require('googleapis');
 // lets usage of HTTP verbs where client does not support 'em
 var methodOverride = require('method-override');
 var eventsApi = require('./server/apis/eventsApi');
-var authApi = require('./server/apis/authorization');
 
 
 var googleConfig = {
-    clientID: '256088856107-od5mglacb5qr4jerua7s1bpln7n2fgp8.apps.googleusercontent.com',
-    clientSecret: 'TdgN7V02nami__WnNhWNriCb',
-    calendarId: 'l8862qq5rmqrcsembcapf0u86s@group.calendar.google.com',
+    clientID: 'xxx',
+    clientSecret: 'yyy',
+    calendarId: 'nnn',
     redirectURL: 'http://localhost:3000/auth'
 };
 
@@ -48,9 +47,7 @@ app.post('/api/v1/sync', eventsApi.syncEvents);
 
 app.patch('/api/v1/events/:id/:person', eventsApi.addParticipantToEvent);
 
-// auth
-app.post('/auth/google', authApi.googleLogin);
-
+// auth (google)
 app.get('/gauth', function(req, res) {
 
     // if not authenticated, go to auth
@@ -107,7 +104,7 @@ app.get('/auth', function(req, res) {
                 // Store our credentials and redirect back to our main page
                 oAuthClient.setCredentials(tokens);
                 authed = true;
-                res.redirect('/gauth');
+                res.redirect('/');
             }
         });
     }
@@ -115,6 +112,15 @@ app.get('/auth', function(req, res) {
 
 // Syncs events from what's out to google calendar
 app.get('/api/v1/gsync', function(req, res) {
+
+    // if not authenticated, redirect to OAuth URL
+    if(!authed) {
+        // Generate an OAuth URL and redirect there
+        var url = oAuthClient.generateAuthUrl({
+            scope: 'https://www.googleapis.com/auth/calendar'
+        });
+        res.status(200).send({'url': url});
+    }
 
     var Event = require('./server/models/events').Events;
     Event.find().exec(function(err, evts){
@@ -185,8 +191,7 @@ app.get('/api/v1/gsync', function(req, res) {
             }
         }
     });
-
-    res.status(200).send('');
+    res.status(200).send('OK');
 });
 
 var port = process.env.PORT || 3000;
