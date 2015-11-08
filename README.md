@@ -1,4 +1,4 @@
-MCC Assignment Phase 1
+MCC Assignment Phase 2
 
 whats-out showcases how to build a simple `express` server that exposes REST API to create and manage events.
 The events are stored in mongodb hosted at mongolabs service.
