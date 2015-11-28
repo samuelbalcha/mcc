@@ -52,7 +52,7 @@
         android:layout_alignLeft="@+id/tvTitle"
         android:paddingTop="5dip"
         android:layout_centerHorizontal="true"
-        android:text="date"
+        android:text="Date"
         android:textColor="#343434"
         android:textSize="15dip" />
 

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,16 +38,25 @@ public class EventModel implements Serializable {
             this.id = object.getString("_id");
             this.title = object.getString("title");
             this.description = object.getString("description");
-           // this.date = object.getString("date") + " - " + object.getString("dateEnd");
 
-            DateFormat format = new SimpleDateFormat("MMMM dd, yyyy  hh:mm aaa", Locale.ENGLISH);
-            try {
-                this.date = format.parse(object.getString("date")).toString() + " - "
-                        + format.parse(object.getString("dateEnd")).toString();
+            DateTimeFormatter fmt = new DateTimeFormatterBuilder()
+                    .appendMonthOfYearShortText()
+                    .appendLiteral(' ')
+                    .appendDayOfMonth(1)
+                    .appendLiteral(',')
+                    .appendLiteral(' ')
+                    .appendYearOfCentury(2,4)
+                    .appendLiteral(' ')
+                    .appendHourOfDay(2)
+                    .appendLiteral(':')
+                    .appendMinuteOfHour(2)
+                    .toFormatter();
 
-            }catch (ParseException e) {
-                e.printStackTrace();
-            }
+            DateTime sdate = new DateTime(object.getString("date"));
+            DateTime edate = new DateTime(object.getString("dateEnd"));
+
+            this.date =  sdate.toString(fmt) + " - " + edate.toString(fmt);
+            System.out.println(sdate.toString(fmt));
 
         } catch (JSONException e) {
             e.printStackTrace();;

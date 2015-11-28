@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/sync_calendar"
+        android:orderInCategory="100"
+        android:title="Sync to calendar"
+        app:showAsAction="never" />
 </menu>
