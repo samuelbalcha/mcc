@@ -59,6 +59,22 @@
         android:clickable="false"
         android:focusable="false" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_weight="20"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/txtEndDate"
+        android:paddingLeft="10dp"
+        android:textColor="#000"
+        android:hint="Date"
+        android:singleLine="true"
+        android:inputType="text"
+        android:clickable="false"
+        android:focusable="false" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"

@@ -51,6 +51,7 @@ public class EventItemsDetailFragment extends Fragment {
         if (mEvent != null) {
             ((TextView) rootView.findViewById(R.id.tvTitle)).setText(mEvent.title);
             ((TextView) rootView.findViewById(R.id.tvDate)).setText(mEvent.date);
+            ((TextView) rootView.findViewById(R.id.tvDescription)).setText(mEvent.description);
         }
 
         return rootView;

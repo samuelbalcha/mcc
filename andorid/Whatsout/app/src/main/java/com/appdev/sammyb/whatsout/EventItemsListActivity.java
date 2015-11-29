@@ -82,10 +82,8 @@ public class EventItemsListActivity extends ActionBarActivity
 
         switch (item.getItemId()) {
             case R.id.btnAdd:
-
                 EventAdd eventAdd = new EventAdd();
-                eventAdd.show(fm, "dialog fragment");
-
+                eventAdd.show(fm, "addEventFragment");
                 return true;
 
             default:
