@@ -46,16 +46,5 @@
         android:textColor="#343434"
         android:textSize="15dip" />
 
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvDate"
-
-        android:paddingTop="5dip"
-        android:layout_centerHorizontal="true"
-        android:text="date"
-        android:textColor="#343434"
-        android:textSize="15dip" />
 
 </RelativeLayout>
